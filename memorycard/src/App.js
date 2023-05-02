@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
-  { src: '/img/helmet-1.png', matched: false },
-  { src: '/img/potion-1.png', matched: false },
-  { src: '/img/ring-1.png', matched: false },
-  { src: '/img/scroll-1.png', matched: false },
-  { src: '/img/shield-1.png', matched: false },
-  { src: '/img/sword-1.png', matched: false },
+  { src: '/img/P1.jpg', matched: false },
+  { src: '/img/P2.jpg', matched: false },
+  { src: '/img/P3.jpg', matched: false },
+  { src: '/img/P4.jpg', matched: false },
+  { src: '/img/P5.jpg', matched: false },
+  { src: '/img/P6.jpg', matched: false },
 ];
 
 function App() {
@@ -42,8 +42,9 @@ function App() {
   const handleChoice = (card) => {
     if (card.id === choiceOne?.id) {
       return;
+    } else {
+      choiceOne ? setchoiceTwo(card) : setchoiceOne(card);
     }
-    choiceOne ? setchoiceTwo(card) : setchoiceOne(card);
   };
 
   const resetTurn = () => {
