@@ -7,7 +7,7 @@ const cardImages = [
   { src: '/img/P2.jpg', matched: false },
   { src: '/img/P3.jpg', matched: false },
   { src: '/img/P4.jpg', matched: false },
-  { src: '/img/P5.jpg', matched: false },
+  { src: '/img/P7.jpg', matched: false },
   { src: '/img/P6.jpg', matched: false },
 ];
 
