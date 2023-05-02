@@ -14,6 +14,7 @@ function App() {
   const [cards, setcards] = useState([]);
   const [turns, setturns] = useState(0);
 
+  //fisher yates
   function shuffle(arr) {
     const n = arr.length;
     for (let i = 0; i < n; i++) {
@@ -27,7 +28,7 @@ function App() {
       ...card,
       id: Math.random(),
     }));
-    shuffle(shuffleCards);
+    shuffle(shuffledCards);
     setcards(shuffledCards);
     setturns(0);
   };
@@ -38,6 +39,17 @@ function App() {
     <div className="App">
       <h1>Magic Match</h1>
       <button onClick={shuffleCards}>New Game</button>
+
+      <div className="card-grid">
+        {cards.map((card) => (
+          <div className="card" key={card.id}>
+            <div>
+              <img className="front" src={card.src} alt="card front" />
+              <img className="back" src="/img/cover.png" alt="card back" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
