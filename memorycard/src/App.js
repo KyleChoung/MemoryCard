@@ -81,7 +81,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Magic Match</h1>
+      <h1>約克夏記憶卡遊戲</h1>
       <button onClick={shuffleCards}>新遊戲</button>
 
       <div className="card-grid">
