@@ -14,6 +14,8 @@ const cardImages = [
 function App() {
   const [cards, setcards] = useState([]);
   const [turns, setturns] = useState(0);
+  const [choiceOne, setchoiceOne] = useState(null);
+  const [choiceTwo, setchoiceTwo] = useState(null);
 
   //fisher yates
   function shuffle(arr) {
@@ -23,6 +25,10 @@ function App() {
       [arr[i], arr[rand]] = [arr[rand], arr[i]];
     }
   }
+
+  const handleChoice = (card) => {
+    choiceOne ? setchoiceTwo(card) : setchoiceOne(card);
+  };
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages].map((card) => ({
@@ -43,7 +49,7 @@ function App() {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <SingleCard key={card.id} card={card} />
+          <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
         ))}
       </div>
     </div>
