@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
@@ -26,10 +26,6 @@ function App() {
     }
   }
 
-  const handleChoice = (card) => {
-    choiceOne ? setchoiceTwo(card) : setchoiceOne(card);
-  };
-
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages].map((card) => ({
       ...card,
@@ -40,7 +36,26 @@ function App() {
     setturns(0);
   };
 
-  console.log(cards, turns);
+  const handleChoice = (card) => {
+    choiceOne ? setchoiceTwo(card) : setchoiceOne(card);
+  };
+
+  const resetTurn = () => {
+    setchoiceOne(null);
+    setchoiceTwo(null);
+    setturns((prevTurns) => prevTurns + 1);
+  };
+
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log('相同!!!');
+        resetTurn();
+      } else {
+        resetTurn();
+      }
+    }
+  }, [choiceOne, choiceTwo]);
 
   return (
     <div className="App">
