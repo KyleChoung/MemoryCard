@@ -16,6 +16,7 @@ function App() {
   const [turns, setturns] = useState(0);
   const [choiceOne, setchoiceOne] = useState(null);
   const [choiceTwo, setchoiceTwo] = useState(null);
+  const [disabled, setdisabled] = useState(null);
 
   //fisher yates
   function shuffle(arr) {
@@ -31,12 +32,17 @@ function App() {
       ...card,
       id: Math.random(),
     }));
+    setchoiceOne(null);
+    setchoiceTwo(null);
     shuffle(shuffledCards);
     setcards(shuffledCards);
     setturns(0);
   };
 
   const handleChoice = (card) => {
+    if (card.id === choiceOne?.id) {
+      return;
+    }
     choiceOne ? setchoiceTwo(card) : setchoiceOne(card);
   };
 
@@ -44,10 +50,13 @@ function App() {
     setchoiceOne(null);
     setchoiceTwo(null);
     setturns((prevTurns) => prevTurns + 1);
+    setdisabled(false);
   };
 
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setdisabled(true);
+
       if (choiceOne.src === choiceTwo.src) {
         setcards((prevCards) => {
           return prevCards.map((card) => {
@@ -65,10 +74,14 @@ function App() {
     }
   }, [choiceOne, choiceTwo]);
 
+  useEffect(() => {
+    shuffleCards();
+  }, []);
+
   return (
     <div className="App">
       <h1>Magic Match</h1>
-      <button onClick={shuffleCards}>New Game</button>
+      <button onClick={shuffleCards}>新遊戲</button>
 
       <div className="card-grid">
         {cards.map((card) => (
@@ -77,9 +90,11 @@ function App() {
             card={card}
             handleChoice={handleChoice}
             flipped={card === choiceOne || card === choiceTwo || card.matched}
+            disabled={disabled}
           />
         ))}
       </div>
+      <p>回合: {turns}</p>
     </div>
   );
 }
