@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import SingleCard from './components/SingleCard';
+import Popup from './components/Popup';
 
 const cardImages = [
   { src: '/img/P1.jpg', matched: false },
@@ -17,6 +18,7 @@ function App() {
   const [choiceOne, setchoiceOne] = useState(null);
   const [choiceTwo, setchoiceTwo] = useState(null);
   const [disabled, setdisabled] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   //fisher yates
   function shuffle(arr) {
@@ -37,6 +39,11 @@ function App() {
     shuffle(shuffledCards);
     setcards(shuffledCards);
     setturns(0);
+    setIsOpen(false);
+  };
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
   };
 
   const handleChoice = (card) => {
@@ -73,6 +80,10 @@ function App() {
         setTimeout(() => resetTurn(), 1000);
       }
     }
+
+    if (cards.every((x) => x.matched === true)) {
+      togglePopup();
+    }
   }, [choiceOne, choiceTwo]);
 
   useEffect(() => {
@@ -96,6 +107,14 @@ function App() {
         ))}
       </div>
       <p>回合: {turns}</p>
+
+      {isOpen && (
+        <Popup
+          turns={turns}
+          handleClose={togglePopup}
+          shuffleCards={shuffleCards}
+        />
+      )}
     </div>
   );
 }
